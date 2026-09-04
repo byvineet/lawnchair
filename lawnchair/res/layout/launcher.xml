@@ -25,7 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:visibility="gone" />
+        android:visibility="gone"
+        launcher:layout_ignoreInsets="true" />
 
     <com.android.launcher3.dragndrop.DragLayer
         android:id="@+id/drag_layer"

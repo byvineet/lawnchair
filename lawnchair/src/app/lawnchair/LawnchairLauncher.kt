@@ -57,6 +57,7 @@ import com.android.launcher3.AbstractFloatingView
 import com.android.launcher3.BaseActivity
 import com.android.launcher3.BubbleTextView
 import com.android.launcher3.GestureNavContract
+import com.android.launcher3.InsettableFrameLayout
 import com.android.launcher3.LauncherAppState
 import com.android.launcher3.LauncherSettings.Favorites.CONTAINER_ALL_APPS_PREDICTION
 import com.android.launcher3.LauncherSettings.Favorites.CONTAINER_HOTSEAT_PREDICTION
@@ -247,8 +248,15 @@ class LawnchairLauncher : QuickstepLauncher() {
                         BitmapFactory.decodeFile(path)
                     }
                     if (bitmap != null) {
-                        imageView?.setImageBitmap(bitmap)
-                        imageView?.visibility = View.VISIBLE
+                        imageView?.let { iv ->
+                            (iv.layoutParams as? InsettableFrameLayout.LayoutParams)?.let { lp ->
+                                lp.ignoreInsets = true
+                                lp.setMargins(0, 0, 0, 0)
+                                iv.layoutParams = lp
+                            }
+                            iv.setImageBitmap(bitmap)
+                            iv.visibility = View.VISIBLE
+                        }
                     } else {
                         imageView?.visibility = View.GONE
                     }
